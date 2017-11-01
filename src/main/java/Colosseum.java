@@ -103,8 +103,94 @@ public class Colosseum {
      *         <p>
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
+        Pokemon tempPokemon = null;
+        int type = 0;
+        System.out.println("Select from the following Pokemon types:");
+        System.out.println("1 - Electric Pokemon");
+        System.out.println("2 - Fire Pokemon");
+        System.out.println("3 - Water Pokemon");
+        type = myScan.nextInt();
+        if (type == 1) {
+            tempPokemon = new ElectricPokemon();
+        } else if (type == 2) {
+            tempPokemon = new FirePokemon();
+        } else if (type == 3) {
+            tempPokemon = new WaterPokemon();
+        } else {
+            System.out.println("Sorry, you must pick either 1, 2, or 3.");
+            System.out.println("Select from the following Pokemon types:");
+            System.out.println("1 - Electric Pokemon");
+            System.out.println("2 - Fire Pokemon");
+            System.out.println("3 - Water Pokemon");
+            type = myScan.nextInt();
+
+            while (type > 3 || type <= 0) {
+                System.out.println("Sorry, you must pick either 1, 2, or 3.");
+                System.out.println("Select from the following Pokemon types:");
+                System.out.println("1 - Electric Pokemon");
+                System.out.println("2 - Fire Pokemon");
+                System.out.println("3 - Water Pokemon");
+                type = myScan.nextInt();
+            }
+            if (type == 1) {
+                tempPokemon = new ElectricPokemon();
+            } else if (type == 2) {
+                tempPokemon = new FirePokemon();
+            } else {
+                tempPokemon = new WaterPokemon();
+            }
+        }
+
+        System.out.println("Name the bitch you're creating: ");
+        String named = myScan.next();
+        tempPokemon.setName(named);
+        int tempVal = 0;
+
+        System.out.println("How many hitpoints will it have? (1-50): ");
+        tempVal = myScan.nextInt();
+        if (tempVal > 0 && tempVal <= MAX_HIT_POINTS) {
+            tempPokemon.setHitPoints(tempVal);
+        } else {
+            System.out.println("Sorry. Hit points must be between 1 and 50: ");
+            tempVal = myScan.nextInt();
+            while (tempVal > MAX_HIT_POINTS || tempVal <= 0) {
+                System.out.println("Sorry. Hit points must be between 1 and 50: ");
+                tempVal = myScan.nextInt();
+            }
+            tempPokemon.setHitPoints(tempVal);
+        }
+        System.out.println("Split fifty points between attack level and defense level");
+        System.out.println("Enter your attack level (1-49): ");
+        tempVal = myScan.nextInt();
+        if (tempVal > 0 && tempVal < MAX_HIT_POINTS) {
+            tempPokemon.setAttackLevel(tempVal);
+        } else {
+            System.out.println("Sorry. The attack level must be between 1 and 49: ");
+            tempVal = myScan.nextInt();
+            while (tempVal >= MAX_HIT_POINTS || tempVal <= 0) {
+                System.out.println("Sorry. The attack level must be between 1 and 49: ");
+                tempVal = myScan.nextInt();
+            }
+            tempPokemon.setAttackLevel(tempVal);
+        }
+        System.out.println("Enter your defense level (1-"
+                + (MAX_HIT_POINTS - tempPokemon.getAttackLevel()) + "): ");
+        tempVal = myScan.nextInt();
+        if (tempVal > 0 && tempVal <= MAX_HIT_POINTS - tempPokemon.getAttackLevel()) {
+            tempPokemon.setDefenseLevel(tempVal);
+        } else {
+            System.out.println("Sorry. The defense level must be between 1 and "
+                    + (MAX_HIT_POINTS - tempPokemon.getAttackLevel()) + ": ");
+            tempVal = myScan.nextInt();
+            while (tempVal <= 0 || tempVal > MAX_HIT_POINTS - tempPokemon.getAttackLevel()) {
+                System.out.println("Sorry. The defense level must be between 1 and "
+                        + (MAX_HIT_POINTS - tempPokemon.getAttackLevel()) + ": ");
+            }
+            tempPokemon.setDefenseLevel(tempVal);
+        }
+
+
+        return tempPokemon;
     }
 
     /**
